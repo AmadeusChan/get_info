@@ -13,7 +13,20 @@ class spider(object):
 		f.close()
 		if re.search(re.compile(r'\.pdf'), url) != None:
 			f = file("pdf_list.txt", "a")
-			f.write(url)
+			f.write(url+'\n')
+			f.close()
+		if re.search(re.compile(r'\.doc'), url) != None:
+			f = file("doc_list.txt", "a")
+			f.write(url+'\n')
+			f.close()
+		if re.search(re.compile(r'\.xls'), url) != None:
+			f = file("xls_list.txt", "a")
+			f.write(url+'\n')
+			f.close()
+		if re.search(re.compile(r'\.docx'), url) != None:
+			f = file("docx_list.txt", "a")
+			f.write(url+'\n')
+			f.close()
 	
 	def get_new_urls(self, url, html):
 		url_list = []
@@ -64,13 +77,13 @@ class spider(object):
 		while url_queue.empty() == False:
 
 			current_url = url_queue.get()
-			#user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"
-			#headers = {'User-Agent' : user_agent}
+			user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"
+			headers = {'User-Agent' : user_agent}
 			try:
-				#request = urllib2.Request(current_url,None,headers)
+				request = urllib2.Request(current_url,None,headers)
 				#print "requested"
-				request = urllib2.Request(current_url)
-				response = urllib2.urlopen(request,None,timeout=2)
+				#request = urllib2.Request(current_url)
+				response = urllib2.urlopen(request,None,timeout=5)
 			except Exception, e:
 				print e
 				continue
